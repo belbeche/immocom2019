@@ -1,0 +1,64 @@
+{% extends 'base.html.twig' %}
+
+{% block title annonce.titre %}  
+
+
+{% block body %}
+
+<div class="jumbotron"> 
+    <div class="container"> 
+        <div class="row">
+            <div class="col-md-8"> 
+            <img class="card-img-top" src="https://place-hold.it/150x50" alt="Card image cap">
+            </div>
+
+            <div class="col-md-4">
+                <h1> {{ annonce.titre }} </h1>    
+                <h2> {{ annonce.rooms }} pièces - {{ annonce.surface }} m²
+                <div class="text-primary" style="font-size: 4rem; font-weight: bold;">{{ annonce.formattedPrice }}</div>
+                <a href="#" class="btn btn-primary"> Contacter l'agence </a>
+            </div>
+    </div>
+</div>
+
+<div class="container mt-4"> 
+
+    
+
+    <p> 
+        {{ annonce.description | nl2br }} 
+    </p>
+        <div class="row">
+            <div class="col-md-8">
+            <h2> Caractéristique </h2>
+                <table class="table table-stripped">
+                    </tr>
+                        <td>Surface habitable</td>
+                        <td>{{ annonce.surface }}</td>
+                    </tr>
+                    </tr>
+                        <td>Pièces</td>
+                        <td>{{ annonce.rooms }}</td>
+                    </tr>
+                    </tr>
+                        <td>Chambres</td>
+                        <td>{{ annonce.bedrooms }}</td>
+                    </tr>
+                    </tr>
+                        <td>Etage</td>
+                        <td>{{ annonce.floor }}</td>
+                    </tr>
+                    </tr>
+                        <td>Chauffage</td>
+                        <td>{{ annonce.Chauffage }}</td>
+                    </tr>
+                </table>
+            </div> 
+            <div clas="col-md-4">
+                <h2> Spécificités </h2>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

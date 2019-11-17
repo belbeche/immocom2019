@@ -1,0 +1,20 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Notasphere v1{% endblock %}
+
+{% block body %}
+
+
+
+{% for annonce in annonces %}
+<div class="card" style="width: 18rem;margin-top: 20px;margin-left: 20px;">
+  <img class="card-img-top" src="https://place-hold.it/150x50" alt="Card image cap">
+  <div class="card-body">
+    <a href="{{ path('show_annonce', {id : annonce.id, slug: annonce.slug }) }}" class="card-title">{{ annonce.titre }}</a>
+    <p class="card-text">{{ annonce.ville }} ({{ annonce.CodePostale }})</p>
+    <h5> {{ annonce.formattedPrice }} € <h5>
+    <a href="#" class="btn btn-primary">En savoir plus</a>
+  </div>
+</div>
+{% endfor %}
+{% endblock %}
