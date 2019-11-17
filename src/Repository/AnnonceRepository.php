@@ -2,7 +2,9 @@
 
 namespace App\Repository;
 
+use App\Entity\Search;
 use App\Entity\Annonce;
+use Doctrine\ORM\Query;
 use Doctrine\ORM\QueryBuilder;
 use Doctrine\Common\Persistence\ManagerRegistry;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
@@ -21,14 +23,28 @@ class AnnonceRepository extends ServiceEntityRepository
     }
 
     /**
-     * @return Annonce[];
+     * @return Query
      */
 
-    public function findAllVisibleQuery(): array
+    public function findAllVisibleQuery(Search $search): Query 
     {
-        return $this->findVisibleQuery()
-            ->getQuery()
-            ->getResult();
+        $query = $this->findVisibleQuery();
+
+        if ($search->getMaxPrice())
+        {
+            $query = $query
+                ->andWhere('p.price <= :maxprice')
+                ->setParameter('maxprice', $search->getMaxPrice());
+        }
+
+        if ($search->getMinSurface())
+        {
+            $query = $query
+                ->andWhere('p.surface >= :minsurface')
+                ->setParameter('minsurface', $search->getMinSurface());
+        }
+
+        return $query->getQuery();
     }
     /**
      * @return Annonces[];

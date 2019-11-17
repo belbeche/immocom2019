@@ -2,7 +2,9 @@
 
 namespace App\Controller;
 
+use App\Entity\Search;
 use App\Entity\Annonce;
+use App\Form\SearchType;
 use App\Repository\AnnonceRepository;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -37,10 +39,12 @@ class AnnoncesImmobiliereController extends AbstractController
      */
     public function index(PaginatorInterface $paginator,Request $request): Response
     {
-
+        $search = new Search();
+        $form = $this->createForm(SearchType::class, $search);
+        $form->handleRequest($request);
         
         $annonces = $paginator->paginate(
-            $this->repository->findAllVisibleQuery(),
+            $this->repository->findAllVisibleQuery($search),
             $request->query->getInt('page', 1),
             12);
 
@@ -49,7 +53,8 @@ class AnnoncesImmobiliereController extends AbstractController
 
         return $this->render('annonces_immobiliere/index.html.twig', [
             'current_menu' => 'annonce',
-            'annonces' => $annonces
+            'annonces' => $annonces,
+            'form' => $form->createView()
         ]);
     }
     
