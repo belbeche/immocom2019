@@ -2,7 +2,8 @@
 <html>
     <head>
         <meta charset="UTF-8">
-        <title>{% block title %}Welcome!{% endblock %}</title>
+        <title>{% block title %}Notasphere{% endblock %}</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
         {% block stylesheets %}
             <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
             <link rel="stylesheet" type="text/css" href="https://bootswatch.com/4/flatly/bootstrap.min.css">
@@ -21,7 +22,7 @@
                     <a class="nav-link {% if current_menu is defined and current_menu == 'annonces' %}active{% endif %}" href="{{ path ('annonces_immobiliere')}}">Annonce immobilière</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Ajouter une annonce</a>
+                    <a class="nav-link" href="{{ path('admin.annonces.new')}}">Ajouter une annonce</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="#">A propos</a>

@@ -4,17 +4,30 @@
 
 {% block body %}
 
-
-
-{% for annonce in annonces %}
-<div class="card" style="width: 18rem;margin-top: 20px;margin-left: 20px;">
-  <img class="card-img-top" src="https://place-hold.it/150x50" alt="Card image cap">
-  <div class="card-body">
-    <a href="{{ path('show_annonce', {id : annonce.id, slug: annonce.slug }) }}" class="card-title">{{ annonce.titre }}</a>
-    <p class="card-text">{{ annonce.ville }} ({{ annonce.CodePostale }})</p>
-    <h5> {{ annonce.formattedPrice }} € <h5>
-    <a href="#" class="btn btn-primary">En savoir plus</a>
-  </div>
+<div class="jumbotron">
+  <h1 class="display-3">Notasphere Production</h1>
+  <p class="lead">Une étude généraliste avec des savoir-faire de spécialites</p>
+   <p>Au fil des ans, nous avons aqcuis un savoir-faire et un savoir-être</p>
+  <hr class="my-4">
+  <p class="lead">
+    <a class="btn btn-primary btn-lg" href="#" role="button">En savoir plus</a>
+  </p>
 </div>
-{% endfor %}
+
+<div class="row" style="margin-top: 20px;align-items: center;">
+{% for annonce in annonces %}
+  <div class="col-sm-6" style="display:flex;justify-content:center;">
+    <div class="card" style="margin-top: 10px;">
+      <div class="card-body" style="padding-right: 350px;">
+        <a href="{{ path('show_annonce', {id : annonce.id, slug: annonce.slug }) }}" class="card-title">{{ annonce.titre }}</a>
+        <p class="card-text">{{ annonce.ville }} ({{ annonce.CodePostale }})</p>
+        <h5> {{ annonce.formattedPrice }} € <h5>
+        <a href="{{ path('show_annonce', {id : annonce.id, slug: annonce.slug }) }}" class="btn btn-primary">En savoir plus</a>
+      </div>
+    </div>
+  </div>
+  {% endfor %}
+</div>
+
+
 {% endblock %}

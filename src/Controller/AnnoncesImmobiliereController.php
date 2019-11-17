@@ -32,7 +32,7 @@ class AnnoncesImmobiliereController extends AbstractController
     /**
      * @Route("/annonces", name="annonces_immobiliere")
      */
-    public function index($slug, $id)
+    public function index()
     {
         
         $annonce = $this->repository->findAllVisible();
