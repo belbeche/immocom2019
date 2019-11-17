@@ -4,6 +4,8 @@ namespace App\Controller;
 
 use App\Entity\Annonce;
 use App\Repository\AnnonceRepository;
+use Knp\Component\Pager\PaginatorInterface;
+use Symfony\Component\HttpFoundation\Request;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -31,16 +33,24 @@ class AnnoncesImmobiliereController extends AbstractController
     }
     /**
      * @Route("/annonces", name="annonces_immobiliere")
+     * @return Query
      */
-    public function index()
+    public function index(PaginatorInterface $paginator,Request $request): Response
     {
-        
-        $annonce = $this->repository->findAllVisible();
-        dump($annonce);
-        // $annonce[0]->setSold(true);
-        $this->em->flush();
 
-        return $this->render('annonces_immobiliere/index.html.twig');
+        
+        $annonces = $paginator->paginate(
+            $this->repository->findAllVisibleQuery(),
+            $request->query->getInt('page', 1),
+            12);
+
+        // $annonce[0]->setSold(true);
+        
+
+        return $this->render('annonces_immobiliere/index.html.twig', [
+            'current_menu' => 'annonce',
+            'annonces' => $annonces
+        ]);
     }
     
     /**

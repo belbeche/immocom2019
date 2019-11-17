@@ -24,7 +24,7 @@ class AnnonceRepository extends ServiceEntityRepository
      * @return Annonce[];
      */
 
-    public function findAllVisible(): array
+    public function findAllVisibleQuery(): array
     {
         return $this->findVisibleQuery()
             ->getQuery()

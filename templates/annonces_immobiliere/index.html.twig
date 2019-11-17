@@ -6,5 +6,15 @@
 
 <div class="container" style="margin-top: 10px;">
     <h1>Voir mes annonces </h1>
+    <div class="row">
+        {% for annonce in annonces %}
+            <div class="col-md-4">
+                {% include 'annonces_immobiliere/Annonces.html.twig' %}
+            </div>
+        {% endfor %}
+    </div>
+    <div class="pagination"> 
+        {{ knp_pagination_render(annonces) }}
+    </div>
 </div>
 {% endblock %}

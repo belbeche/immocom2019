@@ -1,0 +1,12 @@
+<div class="card mb-4">
+    <div class="card body">
+        <a href="{{ path('show_annonce', {slug: annonce.slug, id: annonce.id}) }}">
+        <h5>{{ annonce.titre }}</h5>
+        </a>
+        <p class="card-text"> {{ annonce.description | nl2br }}</p> 
+        <p class="card-text"> {{ annonce.Ville}} ({{ annonce.CodePostale}})</p>
+        <div class="text-primary>" style="font-size: 2rem; font-weight:bold">
+            {{ annonce.formattedPrice}} €
+        </div>
+    </div>
+</div>
