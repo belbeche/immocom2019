@@ -1,0 +1,26 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}OptionAnnonce{% endblock %}
+
+{% block body %}
+    <h1>OptionAnnonce</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ option_annonce.id }}</td>
+            </tr>
+            <tr>
+                <th>Name</th>
+                <td>{{ option_annonce.name }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('option_annonce_index') }}">back to list</a>
+
+    <a href="{{ path('option_annonce_edit', {'id': option_annonce.id}) }}">edit</a>
+
+    {{ include('option_annonce/_delete_form.html.twig') }}
+{% endblock %}

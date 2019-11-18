@@ -37,13 +37,38 @@ class AnnonceRepository extends ServiceEntityRepository
                 ->setParameter('maxprice', $search->getMaxPrice());
         }
 
+        if ($search->getLocation())
+        {
+            $query = $query
+                ->setParameter('location', $search->getLocation());
+        }
+        if ($search->getAchat())
+        {
+            $query = $query
+                ->setParameter('Achat', $search->getAchat());
+        }
+
         if ($search->getMinSurface())
         {
             $query = $query
                 ->andWhere('p.surface >= :minsurface')
                 ->setParameter('minsurface', $search->getMinSurface());
         }
-
+        // je récupere l'annonce de mes options 
+        if($search->getAnnonces()->count() > 0)
+        {
+            $k = 0;
+            // je fait une boucle voir si checked
+            foreach ($search->getAnnonces() as $k => $optionAnnonce)
+            {
+                $k++;
+                // je parcourt la base avec l'indice
+                // optionAnnonces = relation Annonce
+                $query = $query
+                ->andWhere(":optionAnnonces$k MEMBER of p.optionAnnonces")
+                ->setParameter("optionAnnonces$k", $optionAnnonce);
+            }
+        }
         return $query->getQuery();
     }
     /**

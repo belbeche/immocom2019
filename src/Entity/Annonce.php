@@ -3,13 +3,20 @@
 namespace App\Entity;
 
 use Cocur\Slugify\Slugify;
-use Symfony\Component\Validator\Constraints as Assert;
+use App\Entity\OptionAnnonce;
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\Collection;
+use Symfony\Component\HttpFoundation\File\File;
+use Doctrine\Common\Collections\ArrayCollection;
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\AnnonceRepository")
  *@UniqueEntity("titre")
+ *@Vich\Uploadable()
  */
 class Annonce
 {
@@ -23,6 +30,19 @@ class Annonce
      * @ORM\Column(type="integer")
      */
     private $id;
+
+    /**
+     * @var string|null
+     *
+     * @ORM\Column(type="string", length=255)
+     */
+    private $filename;
+
+    /**
+     * @var File|null
+     * @Vich\UploadableField(mapping="annonce_image", fileNameProperty="filename")
+     */
+    private $imageFile;
 
     /**
      * @Assert\Length(min=5, max=255)
@@ -92,9 +112,22 @@ class Annonce
      */
     private $created_at;
 
+    /**
+     * @ORM\ManyToMany(targetEntity="App\Entity\OptionAnnonce", inversedBy="annonces")
+     */
+    private $optionAnnonces;
+
+    /**
+     * @ORM\Column(type="datetime")
+     */
+    private $updated_at;
+
     public function __construct()
     {
         $this->created_at = new \DateTime();
+        $this->options = new ArrayCollection();
+        $this->optionAnnonces = new ArrayCollection();
+        $this->TypesBiens = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -269,6 +302,96 @@ class Annonce
     public function setCreatedAt(\DateTimeInterface $created_at): self
     {
         $this->created_at = $created_at;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|OptionAnnonce[]
+     */
+    public function getOptionAnnonces(): Collection
+    {
+        return $this->optionAnnonces;
+    }
+
+    public function addOptionAnnonce(OptionAnnonce $optionAnnonce): self
+    {
+        if (!$this->optionAnnonces->contains($optionAnnonce)) {
+            $this->optionAnnonces[] = $optionAnnonce;
+            $optionAnnonce->addAnnonce($this);
+        }
+
+        return $this;
+    }
+
+    public function removeOptionAnnonce(OptionAnnonce $optionAnnonce): self
+    {
+        if ($this->optionAnnonces->contains($optionAnnonce)) {
+            $this->optionAnnonces->removeElement($optionAnnonce);
+            $optionAnnonce->removeAnnonce($this);
+        }
+
+        return $this;
+    }
+
+    /**
+     * Get the value of filename
+     *
+     * @return  string|null
+     */ 
+    public function getFilename()
+    {
+        return $this->filename;
+    }
+
+    /**
+     * Set the value of filename
+     *
+     * @param  string|null  $filename
+     *
+     * @return  self
+     */ 
+    public function setFilename($filename): Annonce
+    {
+        $this->filename = $filename;
+        
+        return $this;
+    }
+
+    /**
+     * Get the value of imageFile
+     *
+     * @return  File|null
+     */ 
+    public function getImageFile(): ?File
+    {
+        return $this->imageFile;
+    }
+
+    /**
+     * Set the value of imageFile
+     *
+     * @param  File|null  $imageFile
+     *
+     * @return  self
+     */ 
+    public function setImageFile(?File $imageFile): Annonce
+    {
+        $this->imageFile = $imageFile;
+        if ($this->imageFile instanceof UploadedFile){
+            $this->updated_at = new \DateTime('now');
+        }
+        return $this;
+    }
+
+    public function getUpdatedAt(): ?\DateTimeInterface
+    {
+        return $this->updated_at;
+    }
+
+    public function setUpdatedAt(\DateTimeInterface $updated_at): self
+    {
+        $this->updated_at = $updated_at;
 
         return $this;
     }

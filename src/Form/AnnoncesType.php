@@ -3,9 +3,12 @@
 namespace App\Form;
 
 use App\Entity\Annonce;
+use App\Entity\OptionAnnonce;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 
 class AnnoncesType extends AbstractType
@@ -21,9 +24,25 @@ class AnnoncesType extends AbstractType
             ->add('floor')
             ->add('price')
             ->add('chauffage', ChoiceType::class, [
-                'choices' =>$this->getChoices()
+                'choices' => $this->getChoices()
+            ])
+            ->add('optionAnnonces', EntityType::class, [
+                'class' => OptionAnnonce::class,
+                'choice_label' => 'name',
+                'multiple' => true,
+                'placeholder' => 'Choose an option',
+            ])
+            ->add('imageFile', FileType::class, [
+                'required' => false,
+                'label' => 'Ajout image',
             ])
             ->add('ville')
+            ->add('Type', ChoiceType::class, [
+                'choices' => [
+                    'Location' => 1,
+                    'Achat' => 2,
+                ]
+            ])
             ->add('adresse')
             ->add('code_postale')
             ->add('sold')

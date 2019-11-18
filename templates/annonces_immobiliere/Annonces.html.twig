@@ -1,4 +1,9 @@
+{# Page d'accueil + annonces #}
+
 <div class="card mb-4">
+{% if annonce.filename %}
+    <img src="{{ vich_uploader_asset(annonce,'imageFile')}}" alt="card-img-top" style="width: 100%;height: 100%">
+{% endif %}
     <div class="card body">
         <a href="{{ path('show_annonce', {slug: annonce.slug, id: annonce.id}) }}">
         <h4>{{ annonce.titre }}</h4>

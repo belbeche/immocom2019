@@ -12,10 +12,12 @@
     <div class="col-md-4"> {{ form_row(form.description) }} </div>
 </div>
 <div class="row">
+    <div class="col-md-5"> {{ form_row(form.imageFile) }} </div>
     <div class="col-md-5"> {{ form_row(form.adresse) }} </div>
     <div class="col-md-2"> {{ form_row(form.ville) }} </div>
     <div class="col-md-4"> {{ form_row(form.code_postale) }} </div>
     <div class="col-md-2"> {{ form_row(form.sold) }} </div>
 </div>
+{{ form_rest(form) }}
 <button class="btn btn-primary"> {{ button|default('Enregistrer les modifications') }} </button>
 {{ form_end(form) }}
