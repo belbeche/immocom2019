@@ -9,9 +9,12 @@
     <div class="container"> 
         <div class="row">
             <div class="col-md-8"> 
-            <img class="card-img-top" src="https://place-hold.it/150x50" alt="Card image cap">
+                {% if annonce.filename %}
+                    <img src="{{ vich_uploader_asset(annonce,'imageFile') | imagine_filter('medium') }}" alt="card-img-top" width="600px;">
+                {% else %}
+                    <img src="{{ '/empty.jpg' }} | imagine_filter('medium') }}"  alt="card-img-top" >
+                {% endif %}
             </div>
-
             <div class="col-md-4">
                 <h1> {{ annonce.titre }} </h1>    
                 <h2> {{ annonce.rooms }} pièces - {{ annonce.surface }} m²
@@ -53,6 +56,11 @@
             </div> 
             <div clas="col-md-4">
                 <h2> Spécificités </h2>
+                <ul class="list-group"> 
+                    {% for optionAnnonce in annonce.optionAnnonces %}
+                    <li class="list-group-item"> {{ optionAnnonce.name }} </li>
+                    {% endfor %}
+                </ul>
             </div>
         </div>
     </div>

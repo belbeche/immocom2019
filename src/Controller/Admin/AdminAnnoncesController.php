@@ -9,6 +9,9 @@ use Symfony\Component\HttpFoundation\Request;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Liip\ImagineBundle\Imagine\Cache\CacheManager;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
+use Vich\UploaderBundle\Templating\Helper\UploaderHelper;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class AdminAnnoncesController extends AbstractController
@@ -35,13 +38,16 @@ class AdminAnnoncesController extends AbstractController
     /**
      * @Route("/admin/annonce/create", name="admin.annonces.new")
      */
-    public function new(Request $request)
+    public function new(Request $request,CacheManager $cachemanager,UploaderHelper $helper)
     {
         $annonce = new Annonce();
         $form = $this->createForm(AnnoncesType::class, $annonce);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid())
         {
+            if($annonce->getImageFile() instanceof UploadedFile){
+                $cachemanager->remove($helper->asset($annonce,'imageFile'));
+            }
             $this->em->persist($annonce);
             $this->em->flush();
             $this->addFlash('success', 'Bien créer avec succés');
@@ -62,7 +68,7 @@ class AdminAnnoncesController extends AbstractController
      * @return \Symfony\Component\HttpFoundation\Response
      */
 
-    public function edit(Annonce $annonce,Request $request)
+    public function edit(Annonce $annonce,Request $request,CacheManager $cachemanager,UploaderHelper $helper )
     {
         
         $form = $this->createForm(AnnoncesType::class, $annonce);
@@ -70,6 +76,9 @@ class AdminAnnoncesController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid())
         {
+            if($annonce->getImageFile() instanceof UploadedFile){
+                $cachemanager->remove($helper->asset($annonce,'imageFile'));
+            }
             $this->em->flush();
             $this->addFlash('success', 'Bien modifié avec succés');
             return $this->redirectToRoute('admin.annonces.index');
@@ -85,16 +94,18 @@ class AdminAnnoncesController extends AbstractController
      * @Route("/admin/{id}", name="admin.annonces.delete", methods="DELETE")
      */
 
-    public function delete(Annonce $annonce,Request $request)
+    public function delete(Annonce $annonce,Request $request,CacheManager $cachemanager,UploaderHelper $helper)
     {
         // $annonce = new Annonce();
         // if($this->isCsrfTokenValid('delete', $annonce->getId(), $request->get('_token'))){
         // }
+        
+        if($annonce->getImageFile() instanceof UploadedFile){
+            $cachemanager->remove($helper->asset($annonce,'imageFile'));
+        }
             $this->em->remove($annonce);
             $this->em->flush();
             $this->addFlash('success', 'Bien supprimé avec succés');
             return $this->redirectToRoute('admin.annonces.index');
-       
-        
     }
 }

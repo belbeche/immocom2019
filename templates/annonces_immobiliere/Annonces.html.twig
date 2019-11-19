@@ -1,17 +1,11 @@
 {# Page d'accueil + annonces #}
 
-<div class="card mb-4">
-{% if annonce.filename %}
-    <img src="{{ vich_uploader_asset(annonce,'imageFile')}}" alt="card-img-top" style="width: 100%;height: 100%">
-{% endif %}
-    <div class="card body">
-        <a href="{{ path('show_annonce', {slug: annonce.slug, id: annonce.id}) }}">
-        <h4>{{ annonce.titre }}</h4>
-        </a>
-        <p class="card-text"> {{ annonce.description | nl2br }}</p> 
-        <p class="card-text"> {{ annonce.surface }} m² - {{ annonce.Ville}} ({{ annonce.CodePostale}})</p>
-        <div class="text-primary" style="font-size: 2rem; font-weight:bold;">
-            {{ annonce.formattedPrice}} €
-        </div>
-    </div>
-</div>
+
+
+<h1><i class="fa fa-cloud"></i> <a href="{{ path('show_annonce', {slug: annonce.slug, id: annonce.id}) }}"><h1 class="movie-title">{{ annonce.titre }}</h1></a> </h1>
+<p>{{ annonce.description | nl2br }}</p>
+<p style="margin-bottom: 0px;margin-bottom: 50px;">{{ annonce.surface }} m² - {{ annonce.Ville}} ({{ annonce.CodePostale}})</p>
+<a href="{{ path('show_annonce', {slug: annonce.slug, id: annonce.id}) }}" ><h3><i class="fa fa-price btn btn-success">  {{ annonce.formattedPrice}} € </i></h3></a>
+<div class="controls"></div>
+
+

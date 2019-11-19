@@ -26,28 +26,17 @@ class SearchType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('location', CheckboxType::class, [ 
-                'required' => false,
-                'attr' => [
-                    'class' => 'form-group'
-                ],
-            ])
-            ->add('Achat', CheckboxType::class, [ 
-                'required' => false,
-                'attr' => [
-                    'class' => 'form-group'
-                ],
-            ])
-            ->add('minSurface')
-            ->add('maxPrice')
             ->add('annonces', EntityType::class, [
                 'required' => false,
                 'label' => false,
                 'class' => OptionAnnonce::class,
                 'choice_label' => 'name',
                 'multiple' => true
-             ])
-             ->add('Rechercher', SubmitType::class);
+            ])
+            ->add('minSurface')
+            ->add('maxPrice')
+            ->add('rechercher', SubmitType::class)
+            ->add('Plus de criteres', SubmitType::class);
         ;
     }
 

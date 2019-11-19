@@ -29,31 +29,6 @@ class OptionAnnonce
      */
     private $annonces;
 
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private $Appartement;
-
-    /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     */
-    private $Maison;
-
-    /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     */
-    private $Garage;
-
-    /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     */
-    private $Parking;
-
-    /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     */
-    private $Commerce;
-
     public function __construct()
     {
         $this->annonces = new ArrayCollection();
@@ -98,66 +73,6 @@ class OptionAnnonce
         if ($this->annonces->contains($annonce)) {
             $this->annonces->removeElement($annonce);
         }
-
-        return $this;
-    }
-
-    public function getAppartement(): ?string
-    {
-        return $this->Appartement;
-    }
-
-    public function setAppartement(string $Appartement): self
-    {
-        $this->Appartement = $Appartement;
-
-        return $this;
-    }
-
-    public function getMaison(): ?string
-    {
-        return $this->Maison;
-    }
-
-    public function setMaison(?string $Maison): self
-    {
-        $this->Maison = $Maison;
-
-        return $this;
-    }
-
-    public function getGarage(): ?string
-    {
-        return $this->Garage;
-    }
-
-    public function setGarage(?string $Garage): self
-    {
-        $this->Garage = $Garage;
-
-        return $this;
-    }
-
-    public function getParking(): ?string
-    {
-        return $this->Parking;
-    }
-
-    public function setParking(?string $Parking): self
-    {
-        $this->Parking = $Parking;
-
-        return $this;
-    }
-
-    public function getCommerce(): ?string
-    {
-        return $this->Commerce;
-    }
-
-    public function setCommerce(?string $Commerce): self
-    {
-        $this->Commerce = $Commerce;
 
         return $this;
     }

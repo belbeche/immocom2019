@@ -37,12 +37,6 @@ class AnnoncesType extends AbstractType
                 'label' => 'Ajout image',
             ])
             ->add('ville')
-            ->add('Type', ChoiceType::class, [
-                'choices' => [
-                    'Location' => 1,
-                    'Achat' => 2,
-                ]
-            ])
             ->add('adresse')
             ->add('code_postale')
             ->add('sold')

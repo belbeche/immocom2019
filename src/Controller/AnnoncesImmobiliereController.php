@@ -34,10 +34,10 @@ class AnnoncesImmobiliereController extends AbstractController
         $this->em = $em;
     }
     /**
-     * @Route("/annonces", name="annonces_immobiliere")
+     * @Route("/", name="annonces_immobiliere")
      * @return Query
      */
-    public function index(PaginatorInterface $paginator,Request $request): Response
+    public function index(PaginatorInterface $paginator,Request $request,$id = true): Response
     {
         $search = new Search();
         $form = $this->createForm(SearchType::class, $search);
@@ -46,7 +46,7 @@ class AnnoncesImmobiliereController extends AbstractController
         $annonces = $paginator->paginate(
             $this->repository->findAllVisibleQuery($search),
             $request->query->getInt('page', 1),
-            12);
+            1);
 
         // $annonce[0]->setSold(true);
         

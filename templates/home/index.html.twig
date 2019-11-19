@@ -17,11 +17,10 @@
           {{ form_start(form) }}
             <div class="col" style="display:flex;"> 
             <label> Je veux : </label>
-              <div class="form-group" style="margin-left: 10px;">{{ form_row(form.location, {'label': 'Louer'}) }} </div>
-              <div class="form-group" style="margin-left: 10px;">{{ form_row(form.Achat, {'label': 'Acheter'}) }} </div>
+              
             </div>
             <div class="col" style="display:flex;"> 
-            <label> Type : </label>
+            <label> Type : {{ form_row(form.annonces) }} </label>
               
             </div>
             <div class="col"> 

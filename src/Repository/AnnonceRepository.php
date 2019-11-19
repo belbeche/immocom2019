@@ -37,17 +37,6 @@ class AnnonceRepository extends ServiceEntityRepository
                 ->setParameter('maxprice', $search->getMaxPrice());
         }
 
-        if ($search->getLocation())
-        {
-            $query = $query
-                ->setParameter('location', $search->getLocation());
-        }
-        if ($search->getAchat())
-        {
-            $query = $query
-                ->setParameter('Achat', $search->getAchat());
-        }
-
         if ($search->getMinSurface())
         {
             $query = $query

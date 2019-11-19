@@ -5,39 +5,118 @@
 
 {% block body %}
 
-<div class="container" style="margin-top: 10px;">
-    <div class="jumbotron container-fluide">
-        <div class="container row align-items-end ">
-          <div class="col" style="display:inline-flex;"> 
-          </div>
-          {{ form_start(form) }}
-            <div class="col" style="display:flex;"> 
-            <label> Je veux : </label>
-            <div class="form-group" style="margin-left: 10px;">{{ form_row(form.location, {'label': 'Louer'}) }} </div>
-            <div class="form-group" style="margin-left: 10px;">{{ form_row(form.Achat, {'label': 'Acheter'}) }} </div>
+<div id="slider-wrapper"></div>
+
+<div class="jumbotron jumbotron-fluid" style="margin-bottom: 0px;">
+    <div class="container row">
+        <div class="lead"><div class="row">
+            {% for annonce in annonces %}
+            <div class="col-md-6">
+                <div class="col-md-6">
+                    <div class="col-md-12">
+                        {% include 'annonces_immobiliere/Annonces.html.twig' %}
+                    </div>
+                </div>
+            </div>  
+            <div class="col-md-4 form_image" style="position: absolute; right: 46em;"> 
+                {% if annonce.filename %}
+                    <img src="{{ vich_uploader_asset(annonce,'imageFile') | imagine_filter('thumb') }}" alt="card-img-top" >
+                
+                {% else %}
+                    <img src="{{ '/empty.jpg' }}" alt="card-img-top" >
+                {% endif %}
             </div>
-            <div class="col"> 
-            {{ form_row(form.minSurface) }}
-            </div>
-            <div class="col"> 
-            {{ form_row(form.maxPrice) }}
-            </div>
-            <div class="col"> 
-                {{ form_row(form.annonces) }} 
-            </div>
-          {{ form_rest(form) }}
-          {{ form_end(form) }}
+            {% endfor %}
         </div>
-      </div>
-    <div class="row">
-        {% for annonce in annonces %}
-            <div class="col-md-4">
-                {% include 'annonces_immobiliere/Annonces.html.twig' %}
+        <div class="row">
+        {# <div class="container">
+                <div class="col-md-6 recherche_block" style="margin-top: 10px;" >
+                    <div class="container form_recherche form-style-8" style="margin-right: 0px;">
+                        {{ form_start(form) }}
+                        <div class="col"> Plusieurs choix sont possible : {{ form_row(form.annonces) }} </div>
+                        <div class="col"> {{ form_row(form.minSurface) }}</div> 
+                        <div class="col"> {{ form_row(form.maxPrice) }}</div>
+                        <div class="col"> {{ form_row(form.annonces) }}</div>
+                        <div class="recherche_avance" style="display: inline-flex;"> 
+                            {{ form_rest(form) }}
+                            {{ form_end(form) }}
+                        </div>
+                    </div>
+                </div>
             </div>
-        {% endfor %}
-    </div>
-    <div class="pagination"> 
-        {{ knp_pagination_render(annonces) }}
+        </div> #}
     </div>
 </div>
+<div class="container">
+    <h1>Le notaire, un officier public </h1>
+    <p>Le notaire est un officier public, intervenant dans l'ensemble des domaines du droit : famille , immobilier, patrimoine, entreprises, rural , collectivités locales ... Agissant pour le compte de l'Etat, nommé par le ministre de la justice, il confère aux actes qu'il rédige un gage de sérieux et d'authenticité.</p>
+    <h6> <i class="fa fa-twitter"></i> <a href="https://www.immobilier.notaires.fr/fr/office-notarial" target="_blank">Cela signifie qu'il possède de véritables prérogatives de puissance publique, qu'il reçoit de l'Etat.</a></h6>
+    <form action="">
+    <!--  General -->
+    <div class="form-group">
+        <h2 class="heading">General</h2>
+        <div class="controls">
+        <input type="text" id="name" class="floatLabel" name="name">
+        <label for="name">Name</label>
+        </div>
+        <div class="controls">
+        <input type="email" id="email" class="floatLabel" name="email">
+        <label for="email">Email</label>
+        </div>
+    </div>
+    <!--  Details -->
+    <div class="form-group">
+        <h2 class="heading">Details</h2>
+        <div class="controls">
+        <input type="tel" id="cell" class="floatLabel" name="cell">
+        <label for="cell">Celly</label>
+        </div>
+        <div class="controls">
+        <i class="fa fa-sort"></i>
+        <select class="floatLabel">
+            <option value="blank"></option>
+            <option value="Apple">Apple</option>
+            <option value="Banana">Banana</option>
+            <option value="Kiwi">Kiwi</option>
+            <option value="Orange">Orange</option>
+            <option value="Watermelon">Watermelon</option>
+        </select>
+        <label for="fruit">Favotire Fruit</label>
+        </div>
+    </div>
+    <!--  More -->
+    <div class="form-group">
+        <h2 class="heading">More!</h2>
+        <div class="controls">
+        <textarea name="comments" class="floatLabel" id="comments"></textarea>
+        <label for="comments">Comments</label>
+        <button>Submit</button>
+        </div>
+    </div>
+    </form>
+</div>
+
+<div id="block-one" class="wave-bottom">
+	<div class="content">
+	<h1>Notasphère c'est avant tout des Partenariats efficaces avec les Professionnels du Droit et du Chiffre de la Région</h1>
+		<p>Le notaire est un juriste investi d'une mission d'autorité publique qui prépare des contrats sous la forme authentique pour le compte de ses clients. il exerce ses fonctions dans un cadre libéral.</p>
+    </div>
+    
+</div>
+
+<div id="container-fluide">
+    <div class="content" style="background-color: #ffffff;">
+        <div class="text animated pulse" style="font-size: 4rem;color: black;margin-top: 0px;">Les mission du Notaire</div>
+        <p>L'Etude vous reçoit du lundi au vendredi de 9h à 12h et de 14h à 18h</p>
+    </div>
+</div>
+
+
+<div id="block-one" class="wave-bottom-2">
+	<div class="content">
+	<h1>Notasphère c'est avant tout des Partenariats efficaces avec les Professionnels du Droit et du Chiffre de la Région</h1>
+		<p>Le notaire est un juriste investi d'une mission d'autorité publique qui prépare des contrats sous la forme authentique pour le compte de ses clients. il exerce ses fonctions dans un cadre libéral.</p>
+  </div>
+</div>
+
 {% endblock %}

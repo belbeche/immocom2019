@@ -40,6 +40,9 @@ class Annonce
 
     /**
      * @var File|null
+     * @Assert\Image(
+     *      mimeTypes="image/jpeg"
+     * )
      * @Vich\UploadableField(mapping="annonce_image", fileNameProperty="filename")
      */
     private $imageFile;
@@ -127,7 +130,6 @@ class Annonce
         $this->created_at = new \DateTime();
         $this->options = new ArrayCollection();
         $this->optionAnnonces = new ArrayCollection();
-        $this->TypesBiens = new ArrayCollection();
     }
 
     public function getId(): ?int
